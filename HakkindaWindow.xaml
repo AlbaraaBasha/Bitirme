@@ -1,0 +1,103 @@
+﻿<Window x:Class="Bitirme.HakkindaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bitirme"
+        mc:Ignorable="d"
+        Title="Hakkında" Height="450" Width="850"
+        Icon="Images/icon.ico">
+    <Grid Background="LightBlue">
+
+        <MediaElement Name="VideoBackground"
+              Source="images/hakkinda.mp4"
+              LoadedBehavior="Play"
+              UnloadedBehavior="Manual"
+              Stretch="Fill"
+              IsHitTestVisible="False"
+              MediaEnded="VideoBackground_MediaEnded" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10">
+            <Grid Width="807">
+                <TextBlock FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Silver" >
+                    Diyabetik Retinopati Tespiti Uygulaması
+                </TextBlock>
+                <TextBlock FontSize="16" x:Name="isim" FontWeight="Bold" VerticalAlignment="Top" Foreground="DarkSeaGreen" Margin="10,32,-10,0" >
+   
+                </TextBlock>
+                <TextBlock Name="AboutTextBlock" 
+           TextWrapping="Wrap" 
+           FontSize="14"
+           FontFamily="Segoe UI, Arial"
+           Margin="10,37,10,-17" 
+                           Foreground="White"
+           >
+   
+<LineBreak />
+            
+    Diyabetik retinopati, diyabet hastalarında görülen bir göz hastalığıdır.
+            <LineBreak />
+            Diyabetik retinopati, zamanında teşhis edilmezse körlüğe yol açabilecek ciddi bir sağlık sorunu olabilir.
+            <LineBreak />
+            Bu uygulama, derin öğrenme algoritmalarını kullanarak retina görüntülerindeki hastalık belirtilerini tespit etmeyi amaçlamaktadır.
+<LineBreak />
+<LineBreak />
+    Proje Amacı:
+    Uygulamanın amacı, kullanıcıların retina görüntülerini yükleyerek, görüntülerdeki diyabetik retinopati belirtilerinin 
+            <LineBreak /> 
+            ne derecede olduğunu belirlemelerine yardımcı olmaktır. 
+<LineBreak />
+            Model, retina görüntülerini analiz ederek 5 farklı sınıfa ayırmaktadır:
+    <LineBreak />
+   <Run FontWeight="Bold"> 1. Sağlıklı Retina </Run>
+            <LineBreak />
+    <Run FontWeight="Bold">2. Hafif Non-Proliferatif Diyabetik Retinopati </Run>
+            <LineBreak />
+    <Run FontWeight="Bold">3. Orta Derecede Non-Proliferatif Diyabetik Retinopati</Run>
+            <LineBreak />
+    <Run FontWeight="Bold">4. Şiddetli Non-Proliferatif Diyabetik Retinopati</Run>
+            <LineBreak />
+    <Run FontWeight="Bold">5. Proliferatif Diyabetik Retinopati (PDR)</Run>
+            <LineBreak />
+            <LineBreak />
+
+    Nasıl Çalışır?
+            <LineBreak />
+    Uygulama, kullanıcı tarafından yüklenen retina görüntüsünü analiz eder ve en yüksek olasılıkla hangi sınıfa ait olduğunu tahmin eder. <LineBreak /> 
+            Tahmin edilen sınıf, ekranda kullanıcıya gösterilir.
+<LineBreak />
+            <LineBreak />
+    Teknolojik Altyapı:
+            <LineBreak />
+            <Run FontWeight="Bold">- Model Eğitimi:</Run> Model, derin öğrenme algoritmalarından Densenet kullanılarak eğitilmiştir.
+    <LineBreak />
+    <Run FontWeight="Bold">- ONNX Modeli:</Run> Eğitim sonrası elde edilen model, ONNX formatında kaydedilmiştir. Bu sayede, modelin başka platformlarda da çalışabilmesi sağlanmıştır.
+    <LineBreak />
+    <Run FontWeight="Bold">- Uygulama Teknolojisi:</Run> Uygulama, .NET WPF ve C# kullanılarak geliştirilmiştir. Bu teknoloji, uygulamanın çapraz platformda çalışmasına olanak tanır.
+    <LineBreak />
+            <LineBreak />
+    Kullanıcı Dostu Arayüz:
+            <LineBreak />
+    Uygulama, basit ve kullanıcı dostu bir arayüz sunar. Kullanıcılar, retina görüntülerini yükleyip anında sonuçları görebilir. <LineBreak />
+            Ayrıca, uygulama hakkında bilgi veren bir sayfa ile kullanıcılar uygulamanın amacını ve nasıl çalıştığını öğrenebilirler.
+<LineBreak />
+            <LineBreak />
+    Gelecek Planları:
+            <LineBreak />
+    - Modelin doğruluğunu artırmak ve daha büyük veri kümesi üzerinde çalışmak.
+            <LineBreak />
+    - Uygulamanın mobil platformlar için de geliştirilmesi.
+            <LineBreak />
+    - Kullanıcı geri bildirimlerine göre arayüz ve özelliklerde iyileştirmeler yapmak.
+            <LineBreak />
+            <LineBreak />
+
+    Sağlık Sektöründe Devrim:
+            <LineBreak />
+    Bu uygulama, diyabetik retinopatiyi erken aşamalarda tespit etmek için büyük bir adım olup, görme kaybını önlemeye yardımcı olabilir.
+                </TextBlock>
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

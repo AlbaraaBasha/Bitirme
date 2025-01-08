@@ -1,0 +1,577 @@
+﻿<Window x:Class="Bitirme.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bitirme"
+        mc:Ignorable="d"
+        Title="Ana Sayfa" Height="800" Width="900"
+        Background="LightSkyBlue"
+        Icon="Images/icon.ico"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Custom RadioButton Circle -->
+                            <Border Width="20" Height="20" CornerRadius="10" 
+                                BorderBrush="Gray" 
+                                BorderThickness="2"
+                                VerticalAlignment="Center">
+                                <Ellipse Fill="Transparent" Name="RadioButtonCircle" />
+                            </Border>
+
+                            <!-- RadioButton Content -->
+                            <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- Visual States -->
+                        <ControlTemplate.Triggers>
+                            <!-- Checked State -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="RadioButtonCircle" Property="Fill" Value="green" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <!-- MouseOver State -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RadioButtonCircle" Property="Stroke" Value="Blue" />
+                                <Setter TargetName="RadioButtonCircle" Property="StrokeThickness" Value="3" />
+                            </Trigger>
+                            <!-- Disabled State -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="RadioButtonCircle" Property="Fill" Value="LightGray" />
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Colorful TextBox Style -->
+        <Style TargetType="TextBox" x:Key="ColorfulTextBoxStyle">
+            <!-- Focused and Unfocused States -->
+            <Style.Triggers>
+                <!-- When the TextBox is focused -->
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#e1cbe1" />
+                    <Setter Property="BorderBrush" Value="Blue" />
+                </Trigger>
+                <!-- When the TextBox is not focused -->
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background" Value="LightYellow" />
+                    <Setter Property="BorderBrush" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+
+            <!-- General Appearance -->
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="14" />
+
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="30,30,30,30">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual1">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background1" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border1" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground1" Color="#FF838383"/>
+        <Style x:Key="ToggleButtonStyle2" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="45,45,45,45">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border1}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground1}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+
+
+    <Grid>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="421*"/>
+            <ColumnDefinition Width="379*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="hakkinda" Content="Hakkında" FontSize="14" Grid.Row="0" HorizontalAlignment="Left" Width="100" Margin="5,6,0,1" Click="Button_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="DarkBlue" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="Foreground" Value="LightBlue" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Navy" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button x:Name="kullanim" Content="Kullanım Kılavuzu" FontSize="14" Grid.Row="0" HorizontalAlignment="Left" Width="132" Margin="110,6,0,1" Click="Button_Click_1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="DarkBlue" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="Foreground" Value="LightBlue" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Navy" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Border 
+            x:Name="ImageBorder"
+            BorderBrush="Black" 
+            BorderThickness="3"
+            CornerRadius="10" 
+            Margin="10,23,190,386"
+            Grid.Row="1">
+            <Image 
+            x:Name="SelectedImage" 
+            Height="200" 
+            Width="250" 
+            Stretch="Uniform" Margin="10,10,21,9" />
+        </Border>
+
+        <Label Content="Girdi görüntüsü" FontSize="22" FontWeight="Bold" Foreground="#82847d" Grid.Row="1" Margin="62,248,184,292" RenderTransformOrigin="0.493,0.512"/>
+
+        <TextBox FontSize="20" Margin="305,298,350,270" Grid.Row="1" x:Name="hasta" Style="{StaticResource ColorfulTextBoxStyle}" Grid.ColumnSpan="2"/>
+        <TextBlock Name="SignUpUsernamePlaceholder" IsHitTestVisible="False" Text="Hasta adı" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="318,311,0,0" Foreground="DarkGray" Grid.Row="1" RenderTransformOrigin="0.465,1.289" Height="21" Width="66">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=hasta}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Text="Göz:" Foreground="Gray" FontSize="20" FontWeight="Bold" Margin="75,382,241,168" Grid.Row="1" RenderTransformOrigin="0.51,0.613" Grid.Column="1"/>
+        <RadioButton x:Name="righteye" Content="sağ" Foreground="Gray" FontSize="20" GroupName="OptionsGroup"  Checked="RadioButton_Checked" Margin="319,321,-51,141" Grid.Column="1" Grid.Row="1" Style="{StaticResource CustomRadioButtonStyle}" />
+        <RadioButton x:Name="lefteye" Content="sol" Foreground="gray" FontSize="20" GroupName="OptionsGroup" Checked="RadioButton_Checked" Grid.Column="1" Margin="185,323,112,143" Grid.Row="1" RenderTransformOrigin="0.509,0.567" Style="{StaticResource CustomRadioButtonStyle}" />
+
+
+        <Border Grid.Row="1"
+                x:Name="border"
+        CornerRadius="5"
+        BorderBrush="DarkGray"
+        BorderThickness="1"
+        Padding="10"
+        Margin="10,437,10,0" Grid.ColumnSpan="2">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightBlue" Offset="0.0" />
+                    <GradientStop Color="White" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Name="ResultText"
+               TextWrapping="Wrap"
+               FontSize="22"
+               FontFamily="Aharoni"
+               Foreground="DarkBlue"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" />
+        </Border>
+
+
+
+        <Button Name="UploadImage"
+        Content="Görüntü yükle"
+        Grid.Row="2"
+        Margin="160,10,113,30"
+        Click="UploadImage_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="DarkBlue" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="Foreground" Value="LightBlue" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Navy" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="gecmis" Content="Geçmiş" FontSize="14" Grid.Row="0" HorizontalAlignment="Left" Width="100" Margin="247,6,0,1" Click="Button_Click_2">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="DarkBlue" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="Foreground" Value="LightBlue" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Navy" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
+
+
+
+
+        <ToggleButton x:Name="btnT" 
+      Style="{DynamicResource ToggleButtonStyle1}"
+      HorizontalAlignment="Left" 
+      Height="48" 
+      VerticalAlignment="Top" 
+      Width="108" 
+      BorderBrush="#FFC1C1C1" 
+      BorderThickness="3,3,3,3" 
+      ClipToBounds="True" 
+      Checked="btnT_Checked" 
+      Unchecked="btnT_Unchecked" Margin="308,6,0,0" Grid.Column="1" Grid.RowSpan="2">
+            <ToggleButton.Background>
+                <ImageBrush ImageSource="/images/sunny.jpg"/>
+            </ToggleButton.Background>
+            <Grid HorizontalAlignment="Center" Height="44" VerticalAlignment="Top" Width="103">
+                <DockPanel HorizontalAlignment="Center" Height="39" LastChildFill="False" VerticalAlignment="Top" Width="104">
+                    <ToggleButton x:Name="btnS" Style="{DynamicResource ToggleButtonStyle2}" Content="" DockPanel.Dock="Left" Width="49" Height="40" BorderBrush="{x:Null}" RenderTransformOrigin="0.595,0.148">
+                        <ToggleButton.Background>
+                            <ImageBrush ImageSource="/images/icons8-sun-48.png" Stretch="Fill"/>
+                        </ToggleButton.Background>
+                    </ToggleButton>
+                </DockPanel>
+            </Grid>
+        </ToggleButton>
+        <Border 
+    x:Name="preImageBorder"
+    BorderBrush="Black" 
+    BorderThickness="3"
+    CornerRadius="10" 
+    Margin="318,23,306,386"
+    Grid.Row="1" Grid.ColumnSpan="2">
+            <Image 
+        x:Name="SelectedImage_pre" 
+        Stretch="Uniform" Margin="-35,13,-39,1" />
+        </Border>
+
+        <Border 
+    x:Name="outImageBorder"
+    BorderBrush="Black" 
+    BorderThickness="3"
+    CornerRadius="10" 
+    Margin="151,23,10,386"
+    Grid.Row="1" Grid.Column="1">
+            <Image 
+        x:Name="SelectedImage_out" 
+        Stretch="Uniform" Margin="-33,9,-30,2" />
+        </Border>
+        <Label Content="Ön işleme görüntüsü" FontSize="22" FontWeight="Bold" Foreground="#82847d" Grid.Row="1" Margin="347,249,265,292" Grid.ColumnSpan="2"/>
+        <Label Content="Çıktı görüntüsü" FontSize="22" FontWeight="Bold" Foreground="#82847d" Grid.Row="1" Margin="185,248,27,292" Grid.Column="1"/>
+        <Button x:Name="tahmin_btn"
+            Content="Tahmin yap"
+            Grid.Row="2"
+            Margin="69,10,160,30"
+            Click="tahmin_Click" Grid.Column="1">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="DarkBlue" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="DarkBlue" />
+                            <Setter Property="Foreground" Value="LightBlue" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Navy" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button x:Name="share"
+        Grid.Row="2"
+        Margin="314,30,46,30"
+        Click="share_Click"
+        Grid.Column="1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="BlueViolet" />
+                            <Setter Property="Foreground" Value="White" />
+                            <!-- Apply ScaleTransform to make the icon smaller -->
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform  ScaleY="0.9" CenterX="0.9" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="images/icons8-share-48.png" 
+               Width="43" 
+               Height="38" 
+               Margin="0,0,5,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="clear"
+            Grid.Row="1"
+            Margin="77,298,296,270"
+            Click="clear_Click"
+            Grid.Column="1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="BlueViolet" />
+                            <Setter Property="Foreground" Value="White" />
+                            <!-- Apply ScaleTransform to make the icon smaller -->
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform  ScaleY="0.9" CenterX="0.9" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="images/clear.png" 
+       Width="43" 
+       Height="84" RenderTransformOrigin="0.526,0.758" 
+       />
+            </StackPanel>
+        </Button>
+
+
+        <Button x:Name="logout"
+
+Click="logout_Click" Margin="367,9,46,1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="BlueViolet" />
+                            <Setter Property="Foreground" Value="White" />
+                            <!-- Apply ScaleTransform to make the icon smaller -->
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform  ScaleY="0.9" CenterX="0.9" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal" Width="51">
+                <Image Source="images/logout.png" 
+       Width="43" 
+       Height="38" 
+       Margin="0,0,5,0"/>
+            </StackPanel>
+        </Button>
+
+
+
+        <TextBox FontSize="20" Margin="24,298,205,270" Grid.Row="1" x:Name="hasta_tc" Style="{StaticResource ColorfulTextBoxStyle}"/>
+        <TextBlock x:Name="SignUpUsernamePlaceholder_Copy" IsHitTestVisible="False" Text="TC" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="37,311,0,0" Foreground="DarkGray" Grid.Row="1" RenderTransformOrigin="0.465,1.289" Height="21" Width="18">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=hasta_tc}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+
+
+
+
+
+    </Grid>
+
+</Window>

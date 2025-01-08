@@ -1,0 +1,32 @@
+﻿<Window x:Class="Bitirme.Kullanim"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bitirme"
+        mc:Ignorable="d"
+        Title="Kılavuz" Height="450" Width="800"
+        Icon="Images/icon.ico">
+    <Grid Background="Beige">
+        <MediaElement Name="VideoBackground"
+            Source="images/backg.mp4"
+            LoadedBehavior="Play"
+             UnloadedBehavior="Manual"
+             Stretch="Fill"
+             IsHitTestVisible="False"
+             MediaEnded="VideoBackground_MediaEnded" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <Image Source="Images/11.png" Height="400" Margin="10"/>
+                <Image Source="Images/1.png" Height="400" Margin="10"/>
+                <Image Source="Images/2.png" Height="400" Margin="10"/>
+                <Image Source="Images/22.png" Height="400" Margin="10"/>
+                <Image Source="Images/4.png" Height="400" Margin="10"/>
+                <Image Source="Images/5.png" Height="400" Margin="10"/>
+                <Image Source="Images/33.png" Height="400" Margin="10"/>
+                <Image Source="Images/44.png" Height="400" Margin="10"/>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

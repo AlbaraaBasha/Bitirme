@@ -1,0 +1,58 @@
+﻿<Window x:Class="Bitirme.HistoryPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bitirme"
+        mc:Ignorable="d"
+        Title="Geçmiş" Height="450" Width="800"
+        Icon="Images/icon.ico"
+        ResizeMode="NoResize"
+        KeyDown="Window_KeyDown">
+    <Grid Background="PaleTurquoise">
+        <TextBlock Text="TC giriniz:" FontSize="16" Margin="79,4,623,379" />
+        <TextBox FontSize="16"  x:Name="hastatc" Margin="165,3,418,379"/>
+        <DataGrid Name="HistoryGrid" AutoGenerateColumns="False" Background="Bisque" Margin="10,36,10,5"
+                  MouseDoubleClick="HistoryGrid_MouseDoubleClick" IsReadOnly="True">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Zaman" Binding="{Binding Timestamp}" Width="*" />
+                <DataGridTextColumn Header="TC" Binding="{Binding HastaTC}" Width="*" />
+                <DataGridTextColumn Header="Hasta" Binding="{Binding HastaName}" Width="*" />
+                <DataGridTextColumn Header="Göz" Binding="{Binding eye}" Width="*" />
+
+                <DataGridTextColumn Header="Sonuç" Binding="{Binding Prediction}" Width="*" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="share"
+            Margin="395,3,351,379"
+            Click="filter_Click"
+    >
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="BlueViolet" />
+                            <Setter Property="Foreground" Value="White" />
+                            <!-- Apply ScaleTransform to make the icon smaller -->
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform  ScaleY="0.9" CenterX="0.9" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal" Width="52">
+                <Image Source="/images/filter.png" 
+                    Width="35" 
+                    Height="33" RenderTransformOrigin="0.527,0.957" 
+                    />
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
